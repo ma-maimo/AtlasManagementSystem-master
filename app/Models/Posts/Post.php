@@ -30,11 +30,11 @@ class Post extends Model
         // リレーションの定義
     }
 
-    // コメント数
-    public function commentCounts($post_id)
-    {
-        return Post::with('postComments')->find($post_id)->postComments();
-    }
+    // コメント数をuser.phpに移動
+    // public function commentCounts($post_id)
+    // {
+    //     return Post::with('postComments')->find($post_id)->postComments();
+    // }
 
     // 追加
     public function likes()

@@ -23,11 +23,26 @@ class PostFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            // 'post_category_id' => 'required|',
-            'post_title' => 'required|string|min:1|max:100',
-            'post_body' => 'required|string|min:1|max:5000',
-        ];
+        $rules = [];
+
+        if ($this->has('post_title')) {
+            $rules['post_title'] = 'required|string|min:1|max:100';
+        }
+        if ($this->has('post_body')) {
+            $rules['post_body'] = 'required|string|min:1|max:5000';
+        }
+        if ($this->has('comment')) {
+            $rules['comment'] = 'required|string|min:1|max:2500';
+        }
+
+        // return [
+        //     // 'post_category_id' => 'required|',
+        //     'post_title' => 'required|string|min:1|max:100',
+        //     'post_body' => 'required|string|min:1|max:5000',
+        //     'comment' => 'required|string|min:1|max:2500',
+        // ];
+
+        return $rules;
     }
 
     public function messages()

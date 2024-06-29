@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Users\Subjects;
 
 use App\Models\Posts\Like;
+use App\Models\Posts\PostComment;
 use Auth;
 
 class User extends Authenticatable
@@ -75,7 +76,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Subjects::class, 'subject_users', 'user_id', 'subject_id'); // リレーションの定義
     }
 
-    // いいねしているかどうか
+    // いいね
     public function is_Like($post_id)
     {
         return Like::where('like_user_id', Auth::id())->where('like_post_id', $post_id)->first(['likes.id']);
@@ -85,4 +86,16 @@ class User extends Authenticatable
     {
         return Like::where('like_user_id', Auth::id());
     }
+
+
+    // コメント
+    public function is_Comment($post_id)
+    {
+        return PostComment::where('post_id', $post_id)->count();
+    }
+
+    // public function comments()
+    // {
+    //     return $this->hasMany(PostComment::class, 'user_id');
+    // }
 }

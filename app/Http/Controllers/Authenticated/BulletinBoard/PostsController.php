@@ -11,7 +11,6 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
-use App\Http\Requests\BulletinBoard\PostCommentFormRequest;
 
 use Auth;
 // use Illuminate\Support\Facades\Auth;
@@ -95,7 +94,7 @@ class PostsController extends Controller
     //     return redirect()->route('post.input');
     // }
 
-    public function commentCreate(PostCommentFormRequest $request)
+    public function commentCreate(PostFormRequest $request)
     {
         // dd($request->all());
         // Log::info('PostCommentFormRequest data: ', $request->all());
