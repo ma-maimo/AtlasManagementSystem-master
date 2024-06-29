@@ -7,10 +7,12 @@
         <div class="detail_inner_head">
           <div>
           </div>
+          @if(Auth::user() == $post->user )
           <div>
             <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}">削除</a>
+            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')">削除</a>
           </div>
+          @endif
         </div>
 
         <div class="contributor d-flex">
@@ -44,6 +46,9 @@
     <div class="comment_container border m-5">
       <div class="comment_area p-3">
         <p class="m-0">コメントする</p>
+        @if ($errors->has('comment'))
+        <span class="text-danger">{{ $errors->first('comment') }}</span>
+        @endif
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
         <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">

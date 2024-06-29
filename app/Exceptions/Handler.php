@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\session\TokenMismatchException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -48,6 +50,8 @@ class Handler extends ExceptionHandler
      *
      * @throws \Exception
      */
+
+
     public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
