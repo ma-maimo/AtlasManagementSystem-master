@@ -25,6 +25,7 @@ class PostFormRequest extends FormRequest
     {
         $rules = [];
 
+        // 投稿
         if ($this->has('post_title')) {
             $rules['post_title'] = 'required|string|min:1|max:100';
         }
@@ -33,6 +34,20 @@ class PostFormRequest extends FormRequest
         }
         if ($this->has('comment')) {
             $rules['comment'] = 'required|string|min:1|max:2500';
+        }
+        if ($this->has('post_category_id')) {
+            $rules['post_category_id'] = 'required|integer|exists:sub_categories,id';
+        }
+
+        // カテゴリー
+        if ($this->has('main_category_name')) {
+            $rules['main_category_name'] = 'required|string|min:1|max:100|unique:main_categories,main_category';
+        }
+        if ($this->has('main_category_id')) {
+            $rules['main_category_id'] = 'required|integer|exists:main_categories,id';
+        }
+        if ($this->has('sub_category_name')) {
+            $rules['sub_category_name'] = 'required|string|min:1|max:100|unique:sub_categories,sub_category';
         }
 
         // return [
@@ -48,7 +63,7 @@ class PostFormRequest extends FormRequest
     public function messages()
     {
         return [
-            // 'post_category_id' => 'サブカテゴリーを選択してください。',
+            'post_category_id' => 'サブカテゴリーを選択してください。',
             'post_title.min' => 'タイトルは4文字以上入力してください。',
             'post_title.max' => 'タイトルは50文字以内で入力してください。',
             'post_body.min' => '内容は10文字以上入力してください。',

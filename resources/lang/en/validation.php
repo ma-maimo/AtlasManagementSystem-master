@@ -165,6 +165,20 @@ return [
         'post_body' => [
             'required' => ':attributeは必ず入力してください。',
         ],
+        'main_category_name' => [
+            'required' => ':attributeは必ず入力してください。',
+            'unique' => ':attributeは既に登録されています。',
+        ],
+        'main_category_id' => [
+            'integer' => ':attributeを選択してください。',
+        ],
+        'sub_category_name' => [
+            'required' => ':attributeは必ず入力してください。',
+            'unique' => ':attributeは既に登録されています。',
+        ],
+        'post_category_id' => [
+            'integer' => ':attributeを選択してください。',
+        ],
     ],
 
     /*
@@ -195,6 +209,10 @@ return [
         'post_title' => 'タイトル',
         'post_body' => '投稿内容',
         'comment' => 'コメント',
+        'main_category_name' => 'メインカテゴリー',
+        'main_category_id' => 'メインカテゴリー',
+        'sub_category_name' => 'サブカテゴリー',
+        'post_category_id' => 'カテゴリー',
     ],
 
 ];
