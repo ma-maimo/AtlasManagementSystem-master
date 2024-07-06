@@ -179,6 +179,10 @@ return [
         'post_category_id' => [
             'integer' => ':attributeを選択してください。',
         ],
+        'birth_day' => [
+            'before' =>
+            ':attributeには、:dateまでの日付を指定してください。',
+        ],
     ],
 
     /*
@@ -213,6 +217,12 @@ return [
         'main_category_id' => 'メインカテゴリー',
         'sub_category_name' => 'サブカテゴリー',
         'post_category_id' => 'カテゴリー',
+    ],
+
+    'values' => [
+        'birth_day' => [
+            'today' => '今日',
+        ],
     ],
 
 ];
