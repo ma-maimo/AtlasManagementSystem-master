@@ -50,12 +50,12 @@ class RegisterFormRequest extends FormRequest
             'under_name_kana' => 'required|string|regex:/\A[ァ-ヴー]+\z/u|max:30',
             'mail_address' => 'required|email|max:100|unique:users,mail_address,',
             'sex' => 'required',
-            'old_year' => 'required|after:2000',
+            'old_year' => 'required',
             'old_month' => 'required',
             'old_day' => 'required',
             'role' => 'required',
             'password' => 'required|regex:/^[a-zA-Z0-9]+$/|between:8,30|confirmed:password',
-            'birth_day' => 'date|before:today'
+            'birth_day' => 'date|after:1999-12-31|before:today'
         ];
     }
 }
