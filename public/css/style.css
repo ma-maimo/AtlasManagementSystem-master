@@ -90,6 +90,12 @@ li{
     width: 60%;
 }
 
+/* 追加 */
+.modal.modal-show {
+  display: block;
+}
+
+
 /* 掲示板 */
 .sub_categories{
   display:none;

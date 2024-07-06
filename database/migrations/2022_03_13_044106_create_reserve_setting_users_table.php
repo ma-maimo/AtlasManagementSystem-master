@@ -17,7 +17,7 @@ class CreateReserveSettingUsersTable extends Migration
             $table->integer('id')->autoIncrement()->comment('id');
             $table->integer('user_id')->comment('ユーザーid');
             $table->integer('reserve_setting_id')->comment('カレンダーid');
-            $table->timestamp('created_at')->nullable()->comment('登録日時');
+            $table->timestamp('created_at')->useCurrent()->comment('登録日時');
         });
     }
 

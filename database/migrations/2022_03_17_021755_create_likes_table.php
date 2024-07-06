@@ -17,7 +17,7 @@ class CreateLikesTable extends Migration
             $table->integer('id')->autoIncrement()->comment('id');
             $table->integer('like_user_id')->comment('いいねした人のid');
             $table->integer('like_post_id')->comment('いいねした投稿のid');
-            $table->timestamp('created_at')->nullable()->comment('登録日時');
+            $table->timestamp('created_at')->useCurrent()->comment('登録日時');
         });
     }
 

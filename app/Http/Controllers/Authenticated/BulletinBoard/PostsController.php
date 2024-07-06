@@ -8,6 +8,7 @@ use App\Models\Categories\MainCategory;
 use App\Models\Categories\SubCategory;
 use App\Models\Posts\Post;
 use App\Models\Posts\PostComment;
+use App\Models\Posts\PostSubCategory;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
@@ -20,7 +21,7 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
-        $posts = Post::with('user', 'postComments')->get();
+        $posts = Post::with('user', 'postComments')->get()->sortByDesc('updated_at');
         $categories = MainCategory::get();
         $like = new Like;
         $post_comment = new Post;
@@ -39,6 +40,10 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
+
+        // 新しい順にソート
+        $posts = $posts->sortByDesc('updated_at');
+
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
@@ -64,18 +69,34 @@ class PostsController extends Controller
         $post = Post::create([
             'user_id' => Auth::id(),
             'post_title' => $request->post_title,
-            'post' => $request->post_body
+            'post' => $request->post_body,
         ]);
+
+        $post->subCategories()->attach($request->sub_category_ids);
+
         return redirect()->route('post.show');
     }
 
-    public function postEdit(Request $request)
+    public function postEdit(PostFormRequest $request)
     {
-        Post::where('id', $request->post_id)->update([
-            'post_title' => $request->post_title,
-            'post' => $request->post_body,
-        ]);
-        return redirect()->route('post.detail', ['id' => $request->post_id]);
+        // dd($request);
+        // Post::where('id', $request->post_id)->update([
+        //     'post_title' => $request->post_title,
+        //     'post' => $request->post_body,
+        // ]);
+        // return redirect()->route('post.detail', ['id' => $request->post_id]);
+
+        $post = Post::where('id', $request->post_id)->first();
+
+        if ($post) {
+            $post->update([
+                'post_title' => $request->post_title,
+                'post' => $request->post_body,
+            ]);
+            return redirect()->route('post.detail', ['id' => $post->id]);
+        }
+
+        return redirect()->back()->withErrors(['post_id' => 'Invalid post ID']);
     }
 
     public function postDelete($id)
@@ -155,5 +176,32 @@ class PostsController extends Controller
             ->delete();
 
         return response()->json();
+    }
+
+
+    // 追加：検索
+    public function searchView(Request $request)
+    {
+        $keyword = $request->input('keyword'); //検索ワードの取得
+        // dd($keyword);
+        $query = Post::query(); //ユーザー名に検索ワードが含まれているユーザーを検索
+
+        if (isset($keyword)) { //検索ワードが存在する場合
+            //検索クエリでユーザー名が検索キーワードを含むかどうか
+            $query->where('post_title', 'like', '%' . $keyword . '%')->get();
+            //検索結果に当てはまるユーザーを全件取得、作成日時で降順、20件ずつのページネーション
+            $posts = $query->orderBy('created_at', 'desc')->paginate(20);
+        } else { //検索キーワードが存在しない場合
+            // すべてのユーザーを作成日時の降順で取得、20件ずつのページネーション
+            $posts = $query->orderBy('created_at', 'desc')->paginate(20);
+        }
+        // dd($data);
+        // 検索キーワード、ユーザーの検索結果、クエリ、およびリダイレクトフラグをビューに渡す
+        return view('posts.search', [
+            'keyword' => $keyword,
+            'posts' => $posts,
+            'query' => $query,
+            'redirect_to_search' => true,
+        ]);
     }
 }
