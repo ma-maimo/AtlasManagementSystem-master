@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('/unlike/post/{id}', 'PostsController@postUnLike')->name('post.unlike');
 
             // 追加
-            Route::get('/bulletin_board/posts/search', 'UsersController@searchView')->name('posts.searchView');
+            Route::get('/bulletin_board/posts/subcategory/{id}', 'PostsController@postBySubCategory')->name('post.subcategory');
         });
         Route::namespace('Users')->group(function () {
             Route::get('/show/users', 'UsersController@showUsers')->name('user.show');

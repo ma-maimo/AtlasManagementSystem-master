@@ -21,29 +21,54 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
+        // dd($request->all());
+        // 全部の投稿の取得と更新順にソート
         $posts = Post::with('user', 'postComments')->get()->sortByDesc('updated_at');
         $categories = MainCategory::get();
         $like = new Like;
         $post_comment = new Post;
-        if (!empty($request->keyword)) {
+
+        // dd($request);
+        // キーワード検索：もしリクエストに keyword パラメータが含まれている場合、投稿のタイトルまたは本文にそのキーワードを含む投稿を検索
+        // if (!empty($request->keyword)) {
+        //     $posts = Post::with('user', 'postComments')
+        //         ->where('post_title', 'like', '%' . $request->keyword . '%')
+        //         ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
+        // } else if (!empty($request->category_word)) { //カテゴリーでのフィルタリング:もしリクエストに category_word パラメータが含まれている場合、そのカテゴリーに属する投稿を取得
+        //     $sub_category = $request->category_word;
+        //     $posts = Post::with('user', 'postComments')->whereHas('subCategories', function ($query) use ($sub_category) {
+        //         $query->where('sub_category', $sub_category);
+        //     })->get();
+
+        $keyword = $request->input('keyword');
+
+        if (!empty($keyword)) {
             $posts = Post::with('user', 'postComments')
-                ->where('post_title', 'like', '%' . $request->keyword . '%')
-                ->orWhere('post', 'like', '%' . $request->keyword . '%')->get();
-        } else if ($request->category_word) {
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
-        } else if ($request->like_posts) {
+                ->where(function ($query) use ($keyword) { //投稿の曖昧検索
+                    $query->where('post_title', 'like', '%' . $keyword . '%')
+                        ->orWhere('post', 'like', '%' . $keyword . '%');
+                })
+                ->orWhereHas('subCategories', function ($query) use ($keyword) { //サブカテゴリーの検索
+                    $query->where('sub_category', 'like', '%' . $keyword . '%');
+                })
+                ->orWhereHas('user', function ($query) use ($keyword) { //ユーザー名の検索
+                    $query->where('over_name', 'like', '%' . $keyword . '%')
+                        ->orWhere('under_name', 'like', '%' . $keyword . '%')
+                        ->orWhereRaw("concat(over_name, under_name) like ?", ['%' . $keyword . '%']);
+                })
+                ->get();
+        } else if ($request->like_posts) { //いいねした投稿の表示:もしリクエストに like_posts パラメータが含まれている場合、現在ログインしているユーザーがいいねした投稿のみを表示
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
                 ->whereIn('id', $likes)->get();
-        } else if ($request->my_posts) {
+        } else if ($request->my_posts) { //自分の投稿の表示:もしリクエストに my_posts パラメータが含まれている場合、現在ログインしているユーザーの投稿のみを表示
             $posts = Post::with('user', 'postComments')
                 ->where('user_id', Auth::id())->get();
         }
-
         // 新しい順にソート
-        $posts = $posts->sortByDesc('updated_at');
+        // $posts = $posts->sortByDesc('updated_at');
 
+        // ビューへのデータ渡し:最後に、適切にフィルタリングされた投稿、カテゴリー情報、いいね情報、そして投稿コメント情報をビューに渡す
         return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
     }
 
@@ -178,30 +203,13 @@ class PostsController extends Controller
         return response()->json();
     }
 
-
-    // 追加：検索
-    public function searchView(Request $request)
+    // 追加：カテゴリーごとに投稿の表示
+    public function postBySubCategory($id)
     {
-        $keyword = $request->input('keyword'); //検索ワードの取得
-        // dd($keyword);
-        $query = Post::query(); //ユーザー名に検索ワードが含まれているユーザーを検索
+        $categories = MainCategory::with('subCategories')->get();
+        $subCategory = SubCategory::findOrFail($id);
+        $posts = $subCategory->posts()->with('user', 'postComments')->get();
 
-        if (isset($keyword)) { //検索ワードが存在する場合
-            //検索クエリでユーザー名が検索キーワードを含むかどうか
-            $query->where('post_title', 'like', '%' . $keyword . '%')->get();
-            //検索結果に当てはまるユーザーを全件取得、作成日時で降順、20件ずつのページネーション
-            $posts = $query->orderBy('created_at', 'desc')->paginate(20);
-        } else { //検索キーワードが存在しない場合
-            // すべてのユーザーを作成日時の降順で取得、20件ずつのページネーション
-            $posts = $query->orderBy('created_at', 'desc')->paginate(20);
-        }
-        // dd($data);
-        // 検索キーワード、ユーザーの検索結果、クエリ、およびリダイレクトフラグをビューに渡す
-        return view('posts.search', [
-            'keyword' => $keyword,
-            'posts' => $posts,
-            'query' => $query,
-            'redirect_to_search' => true,
-        ]);
+        return view('authenticated.bulletinboard.posts', compact('categories', 'subCategory', 'posts'));
     }
 }

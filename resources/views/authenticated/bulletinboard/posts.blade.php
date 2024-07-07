@@ -36,9 +36,9 @@
 
                   <!-- 検索 -->
                   <div class="">
-                        <form action="{{ route('posts.searchView') }}" method="GET">
+                        <form action="{{ route('post.show') }}" method="GET">
                               @csrf
-                              <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest" value="@if(isset($keyword)){{$keyword}}@endif">
+                              <input type="text" placeholder="キーワードを検索" name="keyword" form="postSearchRequest" value="{{ request('search_term') }}">
                               <input type="submit" value="検索" form="postSearchRequest">
                         </form>
                   </div>
@@ -47,10 +47,16 @@
                   <input type="submit" name="my_posts" class="category_btn" value="自分の投稿" form="postSearchRequest">
                   <ul>
                         @foreach($categories as $category)
-                        <li class="main_categories" category_id="{{ $category->id }}"><span>{{ $category->main_category }}<span></li>
-                        @foreach($category->subCategories as $sub_category)
-                        <option value="{{ $sub_category->id }}">{{ $sub_category->sub_category }}</option>
-                        @endforeach
+                        <li class="main_categories" category_id="{{ $category->id }}">
+                              <span>{{ $category->main_category }}</span>
+                              <ul>
+                                    @foreach($category->subCategories as $sub_category)
+                                    <li value="{{ $sub_category->id }}" name="select_sub_category">
+                                          　<a href="{{ route('post.subcategory', ['id' => $sub_category->id]) }}">{{ $sub_category->sub_category }}</a>
+                                    </li>
+                                    @endforeach
+                              </ul>
+                        </li>
                         @endforeach
                   </ul>
             </div>
