@@ -16,6 +16,7 @@
 
 <body>
       <form action="{{ route('registerPost') }}" method="POST">
+            @csrf
             <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
                   <div class="w-25 vh-75 border p-3">
                         <div class="register_form">
@@ -208,15 +209,15 @@
                         <span class="text-danger">{{ $errors->first('role') }}</span>
                         @endif
 
-                        <!-- <div class="select_teacher d-none">
-          <label class="d-block m-0" style="font-size:13px">選択科目</label>
-          @foreach($subjects as $subject)
-          <div class="">
-            <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
-            <label>{{ $subject->subject }}</label>
-          </div>
-          @endforeach
-        </div> -->
+                        <div class="select_teacher d-none">
+                              <label class="d-block m-0" style="font-size:13px">選択科目</label>
+                              @foreach($subjects as $subject)
+                              <div class="">
+                                    <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
+                                    <label>{{ $subject->subject }}</label>
+                              </div>
+                              @endforeach
+                        </div>
 
                         <div class="mt-3">
                               <label class="d-block m-0" style="font-size:13px">パスワード</label>

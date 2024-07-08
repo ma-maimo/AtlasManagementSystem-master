@@ -17,10 +17,10 @@
 
                         <div class="contributor d-flex">
                               <p>
-            <span>{{ $post->user->over_name }}</span>
-            <span>{{ $post->user->under_name }}</span>
-            さん
-          </p>
+                                    <span>{{ $post->user->over_name }}</span>
+                                    <span>{{ $post->user->under_name }}</span>
+                                    さん
+                              </p>
                               <span class="ml-5">{{ $post->created_at }}</span>
                         </div>
                         <div class="detsail_post_title">{{ $post->post_title }}</div>
@@ -32,9 +32,9 @@
                               @foreach($post->postComments as $comment)
                               <div class="comment_area border-top">
                                     <p>
-              <span>{{ $comment->commentUser($comment->user_id)->over_name }}</span>
-              <span>{{ $comment->commentUser($comment->user_id)->under_name }}</span>さん
-            </p>
+                                          <span>{{ $comment->commentUser($comment->user_id)->over_name }}</span>
+                                          <span>{{ $comment->commentUser($comment->user_id)->under_name }}</span>さん
+                                    </p>
                                     <p>{{ $comment->comment }}</p>
                               </div>
                               @endforeach

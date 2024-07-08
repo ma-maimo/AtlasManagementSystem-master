@@ -68,13 +68,6 @@ class RegisterController extends Controller
             $data = $old_year . '-' . $old_month . '-' . $old_day;
             $birth_day = date('Y-m-d', strtotime($data));
 
-            //変更：$subjectsがあった場合のみ
-            if (isset($subjects)) {
-                $subjects = $request->subject;
-                // dd($subjects);
-            }
-            // 変更：ここまで
-
             $user_get = User::create([
                 'over_name' => $request->over_name,
                 'under_name' => $request->under_name,
@@ -86,13 +79,11 @@ class RegisterController extends Controller
                 'role' => $request->role,
                 'password' => bcrypt($request->password)
             ]);
-            // dd($user_get);
-            $user = User::findOrFail($user_get->id);
-            // dd($user);
 
-            //変更：$subjectsがあった場合のみ
-            if (isset($subjects)) {
-                $user->subjects()->attach($subjects);
+
+            // 変更：$subjectsがあった場合のみ
+            if ($request->has('subject')) {
+                $user_get->subjects()->attach($request->input('subject'));
             }
             // 変更：ここまで
 
