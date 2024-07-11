@@ -20,11 +20,66 @@ class UsersTableSeeder extends Seeder
             "under_name" => "かわ",
             "over_name_kana" => "チイ",
             "under_name_kana" => "カワ",
-            "mail_address" => "chiikawa@chiikawa.com",
+            "mail_address" => "tiikawa@tiikawa.com",
             "sex" => "2",
-            "birth_day" => "1995-05-01",
+            "birth_day" => "2000-03-02",
             "role" => "4",
-            "password" => bcrypt('chiikawa1234') //bcrypt( )→暗号化
+            "password" => bcrypt('tiikawa1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "はち",
+            "under_name" => "われ",
+            "over_name_kana" => "ハチ",
+            "under_name_kana" => "ワレ",
+            "mail_address" => "hatiware@tiikawa.com",
+            "sex" => "1",
+            "birth_day" => "2000-05-01",
+            "role" => "4",
+            "password" => bcrypt('hatiware1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "うさ",
+            "under_name" => "ぎ",
+            "over_name_kana" => "ウサ",
+            "under_name_kana" => "ギ",
+            "mail_address" => "usagi@tiikawa.com",
+            "sex" => "3",
+            "birth_day" => "2000-08-15",
+            "role" => "4",
+            "password" => bcrypt('usagi1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "モモ",
+            "under_name" => "ンガ",
+            "over_name_kana" => "モモ",
+            "under_name_kana" => "ンガ",
+            "mail_address" => "momonga@tiikawa.com",
+            "sex" => "3",
+            "birth_day" => "2000-07-20",
+            "role" => "4",
+            "password" => bcrypt('usagi1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "ポシェットの",
+            "under_name" => "鎧",
+            "over_name_kana" => "ポシェットノ",
+            "under_name_kana" => "ヨロイ",
+            "mail_address" => "poshetto@tiikawa.com",
+            "sex" => "1",
+            "birth_day" => "2000-11-23",
+            "role" => "1",
+            "password" => bcrypt('poshetto1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "労働の",
+            "under_name" => "鎧",
+            "over_name_kana" => "ロウドウノ",
+            "under_name_kana" => "ヨロイ",
+            "mail_address" => "roudou@tiikawa.com",
+            "sex" => "1",
+            "birth_day" => "2000-06-13",
+            "role" => "3",
+            "password" => bcrypt('roudou1234') //bcrypt( )→暗号化
         ]);
     }
 }
