@@ -32,9 +32,17 @@ class SelectNameDetails implements DisplayUsers
         $q->whereIn('sex', $gender)
           ->whereIn('role', $role);
       })
-      ->whereHas('subjects', function ($q) use ($subjects) {
-        $q->where('subjects.id', $subjects);
-      })
+      // ->whereHas('subjects', function ($q) use ($subjects) {
+      //   $q->where('subjects.id', $subjects);
+      // })
+      ->whereHas(
+        'subjects',
+        function ($q) use ($subjects) {
+          if (!is_null($subjects)) {
+            $q->whereIn('subjects.id', $subjects);
+          }
+        }
+      )
       ->orderBy('over_name_kana', $updown)->get();
     return $users;
   }
