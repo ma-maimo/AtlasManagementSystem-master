@@ -10,6 +10,7 @@ use App\Models\Users\Subjects;
 
 use App\Models\Posts\Like;
 use App\Models\Posts\PostComment;
+use App\Models\Calendars\ReserveSettings;
 use Auth;
 
 class User extends Authenticatable
@@ -98,5 +99,23 @@ class User extends Authenticatable
     // public function comments()
     // {
     //     return $this->hasMany(PostComment::class, 'user_id');
+    // }
+
+
+
+    // ついか
+    // public function authReserveDay()
+    // {
+    //     return $this->reserves()->pluck('setting_reserve')->toArray();
+    // }
+
+    // public function authReserveDate($date)
+    // {
+    //     return $this->reserves()->where('setting_reserve', $date)->get();
+    // }
+
+    // public function reserves()
+    // {
+    //     return $this->belongsToMany(ReserveSettings::class, 'reserve_setting_users', 'user_id', 'reserve_setting_id');
     // }
 }

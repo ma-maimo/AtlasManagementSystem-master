@@ -1,20 +1,26 @@
 <?php
+
 namespace App\Calendars\Admin;
+
 use Carbon\Carbon;
 use App\Models\Users\User;
 
-class CalendarView{
+class CalendarView //スクール枠登録のカレンダー
+{
   private $carbon;
 
-  function __construct($date){
+  function __construct($date)
+  {
     $this->carbon = new Carbon($date);
   }
 
-  public function getTitle(){
+  public function getTitle()
+  {
     return $this->carbon->format('Y年n月');
   }
 
-  public function render(){
+  public function render()
+  {
     $html = [];
     $html[] = '<div class="calendar text-center">';
     $html[] = '<table class="table m-auto border">';
@@ -32,20 +38,32 @@ class CalendarView{
     $html[] = '<tbody>';
 
     $weeks = $this->getWeeks();
+    $html = []; //追加
 
-    foreach($weeks as $week){
-      $html[] = '<tr class="'.$week->getClassName().'">';
+    foreach ($weeks as $week) {
+      $html[] = '<tr class="' . $week->getClassName() . '">';
       $days = $week->getDays();
-      foreach($days as $day){
+      foreach ($days as $day) {
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
-        if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
+        $currentDay = $day->everyDay(); //追加
+
+        // dd($startDay, $toDay, $currentDay);
+
+
+
+        // 日付が過去の日かどうかを判断し、過去の場合は past-day クラスが適用された <td> 要素が生成
+        if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
+          // if ($startDay <= $currentDay && $toDay >= $currentDay) {
           $html[] = '<td class="past-day border">';
-        }else{
-          $html[] = '<td class="border '.$day->getClassName().'">';
+          // そうでない場合は、日付に対応したクラス名を取得し、それを <td> 要素のクラス属性に追加
+        } else {
+          $html[] = '<td class="border ' . $day->getClassName() . '">';
         }
+        // 日付の表示やその他の処理（render()メソッドやdayPartCounts()メソッド）が行われた後、</td>タグで要素を閉じる
         $html[] = $day->render();
         $html[] = $day->dayPartCounts($day->everyDay());
+        // $html[] = $day->dayPartCounts($currentDay);
         $html[] = '</td>';
       }
       $html[] = '</tr>';
@@ -57,14 +75,15 @@ class CalendarView{
     return implode("", $html);
   }
 
-  protected function getWeeks(){
+  protected function getWeeks()
+  {
     $weeks = [];
     $firstDay = $this->carbon->copy()->firstOfMonth();
     $lastDay = $this->carbon->copy()->lastOfMonth();
     $week = new CalendarWeek($firstDay->copy());
     $weeks[] = $week;
     $tmpDay = $firstDay->copy()->addDay(7)->startOfWeek();
-    while($tmpDay->lte($lastDay)){
+    while ($tmpDay->lte($lastDay)) {
       $week = new CalendarWeek($tmpDay, count($weeks));
       $weeks[] = $week;
       $tmpDay->addDay(7);

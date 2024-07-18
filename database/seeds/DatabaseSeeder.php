@@ -1,5 +1,6 @@
 <?php
 
+use App\ReserveSettingUsers;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SubjectsTableSeeder::class,
             MainCategoriesSeeder::class,
             SubCategoriesSeeder::class,
+            ReserveSettingUsersSeeder::class,
         ]);
     }
 }

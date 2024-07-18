@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Calendars\General;
 
-class CalendarWeekBlankDay extends CalendarWeekDay{
-  function getClassName(){
+class CalendarWeekBlankDay extends CalendarWeekDay
+{ //空白でカレンダーのレイアウトを整える役割
+  function getClassName()
+  {
     return "day-blank";
   }
 
@@ -10,24 +13,28 @@ class CalendarWeekBlankDay extends CalendarWeekDay{
    * @return
    */
 
-   function render(){
-     return '';
-   }
+  function render()
+  {
+    return '';
+  }
 
-   function selectPart($ymd){
-     return '';
-   }
+  function getDate()
+  {
+    return '';
+  }
+  function selectPart($ymd)
+  {
+    return '';
+  }
 
-   function getDate(){
-     return '';
-   }
 
-   function cancelBtn(){
-     return '';
-   }
+  function cancelBtn()
+  {
+    return '';
+  }
 
-   function everyDay(){
-     return '';
-   }
-
+  function everyDay()
+  {
+    return '';
+  }
 }

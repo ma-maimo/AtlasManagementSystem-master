@@ -244,5 +244,6 @@ li{
 
 
 .past-day {
-  background: #0000FF;
+  background-color: #d3d3d3;
+  /* グレーの背景色 */
 }
