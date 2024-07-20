@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Calendars\General\CalendarView;
 use App\Models\Calendars\ReserveSettings;
+use App\Models\Calendars\ReserveSettingUsers;
 use App\Models\Calendars\Calendar;
 use App\Models\USers\User;
 use Auth;
@@ -66,6 +67,15 @@ class CalendarsController extends Controller
             DB::rollback();
         }
 
+        return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+    }
+
+    // 予約削除処理
+    public function cancel(Request $request)
+    {
+        $reserve_setting_id = $request->input('reserve_setting_id');
+        // dd($reserve_setting_id);
+        ReserveSettingUsers::where('reserve_setting_id', $reserve_setting_id)->delete();
         return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 }

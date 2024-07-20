@@ -80,8 +80,8 @@ class CalendarView //スクール予約画面のカレンダー
             data-toggle="modal"
             data-target="#modal-example"
             day="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve  . '"
-            reservePart="' . $reservePart . '"
-            id="' . $day->authReserveDate($day->everyDay())->first()->id  . '"
+            reserve_part="' . $reservePart . '"
+            reserve_setting_id="' . $day->authReserveDate($day->everyDay())->first()->id  . '"
             method="post" name="delete_date" style="font-size:12px"
             value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
@@ -96,12 +96,14 @@ class CalendarView //スクール予約画面のカレンダー
                     <p class="reserve_part">時間：</p>
                     <p class="reserve_cancel">上記の予約をキャンセルしてもよろしいですか？</p>
 
+                    <form action="' . route('cancel', ['reserve_setting_id' => $day->authReserveDate($day->everyDay())->first()->id]) . '" method="post">
+                    <input type="hidden" name="day" class="day" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">
+                    <input type="hidden" name="reserve_part" class="reserve_part" value="' . $reservePart . '">
                     <input type="hidden" name="reserve_setting_id" class="reserve_setting_id" value="' . $day->authReserveDate($day->everyDay())->first()->id . '">
-
-                    <form action="/cancel-reservation" method="post">
-                        <button type="button" class="submit_button modal-close">閉じる</button>
-                        <button type="submit" class="submit_button">キャンセル</button>
+                     ' . csrf_field() . '
+                    <button type="submit" class="submit_button">キャンセル</button>
                     </form>
+                    <button type="button" class="submit_button modal-close">閉じる</button>
                 </div>
             </div>';
         }

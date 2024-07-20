@@ -9,15 +9,15 @@ $(function() {
 
         // 取得した投稿内容をモーダルの中身へ渡す
         var day = $(this).attr('day');
-        var reservePart = $(this).attr('reservePart');
-        var id = $(this).attr('id');
+        var reservePart = $(this).attr('reserve_part');
+        var reserveSettingId = $(this).attr('reserve_setting_id');
 
         //表示
         $('.reserve_day').text('予約日：' + day);
         $('.reserve_part').text('時間：' + reservePart);
-        $('.id').val(id);
+        $('.reserve_setting_id').val(reserveSettingId);
 
-        console.log(day, reservePart, id);
+        console.log(day, reservePart, reserveSettingId);
 
         return false;
     });
