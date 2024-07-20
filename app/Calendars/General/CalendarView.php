@@ -2,6 +2,9 @@
 
 namespace App\Calendars\General;
 
+use App\Models\Calendars\ReserveSettings;
+use App\Models\Calendars\ReserveSettingUsers;
+
 use Carbon\Carbon;
 use Auth;
 
@@ -71,9 +74,36 @@ class CalendarView //スクール予約画面のカレンダー
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
             // 未来日で予約がある
           } else {
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
+            // キャンセルボタン
+            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75 modal-open"
+            name="delete_date" style="font-size:12px"
+            data-toggle="modal"
+            data-target="#modal-example"
+            day="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve  . '"
+            reservePart="' . $reservePart . '"
+            id="' . $day->authReserveDate($day->everyDay())->first()->id  . '"
+            method="post" name="delete_date" style="font-size:12px"
+            value="' . $day->authReserveDate($day->everyDay())->first()->setting_reserve . '">' . $reservePart . '</button>';
             $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           }
+
+          // モーダルの中身
+          $html[] = '
+            <div class="modal cancel-modal">
+                <div class="modal__bg modal-close"></div>
+                <div class="modal__content">
+                    <p class="reserve_day">予約日：</p>
+                    <p class="reserve_part">時間：</p>
+                    <p class="reserve_cancel">上記の予約をキャンセルしてもよろしいですか？</p>
+
+                    <input type="hidden" name="reserve_setting_id" class="reserve_setting_id" value="' . $day->authReserveDate($day->everyDay())->first()->id . '">
+
+                    <form action="/cancel-reservation" method="post">
+                        <button type="button" class="submit_button modal-close">閉じる</button>
+                        <button type="submit" class="submit_button">キャンセル</button>
+                    </form>
+                </div>
+            </div>';
         }
 
 
