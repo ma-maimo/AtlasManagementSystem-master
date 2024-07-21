@@ -74,8 +74,22 @@ class CalendarsController extends Controller
     public function cancel(Request $request)
     {
         $reserve_setting_id = $request->input('reserve_setting_id');
+        $user_id = Auth::id();
+
+        // ログインユーザーの対象の予約だけ削除
+        $reservation = ReserveSettingUsers::where('reserve_setting_id', $reserve_setting_id)
+            ->where('user_id', $user_id)
+            ->first();
+
+        if ($reservation) {
+            $reservation->delete();  // 該当する予約を削除
+        }
+
+        return redirect()->route('calendar.general.show', ['user_id' => $user_id]);
+
+
         // dd($reserve_setting_id);
-        ReserveSettingUsers::where('reserve_setting_id', $reserve_setting_id)->delete();
-        return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
+        // ReserveSettingUsers::where('reserve_setting_id', $reserve_setting_id)->delete();
+        // return redirect()->route('calendar.general.show', ['user_id' => Auth::id()]);
     }
 }
