@@ -28,6 +28,7 @@ class CalendarWeekDay
   {
     return $this->carbon->format("Y-m-d");
   }
+  // これが原本🌷///////////////////////////////////////////////////////////
 
   // function dayPartCounts($ymd)
   // {
@@ -50,6 +51,9 @@ class CalendarWeekDay
 
   //   return implode("", $html);
   // }
+  // これが原本🌷///////////////////////////////////////////////////////////
+
+  // これはOK🌷///////////////////////////////////////////////////////////
 
   function dayPartCounts($ymd)
   {
@@ -67,45 +71,20 @@ class CalendarWeekDay
 
       $count = $reserveSetting ? $reserveSetting->users_count : 0;
 
-      $html[] = '<p class="day_part m-0 pt-1">' . $part . '部　' . $count . '</p>';
+      // リンクを生成
+      $link = route('calendar.admin.detail', ['date' => urlencode($ymd), 'part' => $part]);
+
+
+      // $html[] = '<p class="day_part m-0 pt-1">' . $part . '部　' . $count . '</p>';
+      $html[] = '<a href="' . $link . '"><p class="day_part m-0 pt-1">' . $part . '部</p></a>';
+      $html[] = '<p class="day_part m-0 pt-1">　' . $count . '</p>';
     }
 
     $html[] = '</div>';
 
     return implode("", $html);
   }
-
-
-  // public function dayPartCounts($date)
-  // {
-  //   // 予約枠を取得
-  //   $parts = $this->getDayParts(); // 予約枠の取得方法は実際のコードに合わせて変更
-
-  //   // 予約があるかどうかに関わらず、すべての予約枠を表示
-  //   $html = '<div class="day-parts">';
-  //   foreach ($parts as $part) {
-  //     // 各予約枠の詳細を表示
-  // $count = $this->getReservationCountForPart($date, $part); // 各予約枠の予約人数を取得
-  // $html .= '<div class="part">' . $part . ' - 予約人数: ' . $count . '</div>';
-  //   }
-  //   $html .= '</div>';
-
-  //   return $html;
-  // }
-
-  // private function getDayParts()
-  // {
-  //   // 予約枠の配列を返す（例）
-  //   return ['9:00 - 10:00', '10:00 - 11:00', '11:00 - 12:00'];
-  // }
-
-  // private function getReservationCountForPart($ymd, $part)
-  // {
-  //   // 指定された日付と予約枠の予約人数を取得するクエリを実行
-  //   return ReserveSettings::where('setting_reserve', $ymd)
-  //     ->where('setting_part', $part)
-  //     ->count();
-  // }
+  // これはOK🌷///////////////////////////////////////////////////////////
 
 
 
