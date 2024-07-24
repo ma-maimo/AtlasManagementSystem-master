@@ -15,6 +15,22 @@
                               @endif
                         </div>
 
+
+                        @foreach($post->subCategories as $subCategory)
+                        <input type="submit" name="" class="category_btn" value="{{ $subCategory->sub_category }}">
+                        @endforeach
+
+
+                        <ul>
+                              <li> @if($errors->first('post_title'))
+                                    <span class="error_message">{{ $errors->first('post_title') }}</span>
+                                    @endif
+                              </li>
+                              <li> @if($errors->first('post_body'))
+                                    <span class="error_message">{{ $errors->first('post_body') }}</span>
+                                    @endif
+                              </li>
+                        </ul>
                         <div class="contributor d-flex">
                               <p>
                                     <span>{{ $post->user->over_name }}</span>
@@ -58,29 +74,23 @@
       </div>
 </div>
 
-<div class="modal js-modal @if($errors->any()) modal-show @endif">
+<div class="modal js-modal ">
       <div class="modal__bg js-modal-close"></div>
       <div class="modal__content">
             <form action="{{ route('post.edit') }}" method="post">
                   <div class="w-100">
                         <div class="modal-inner-title w-50 m-auto">
-                              @if($errors->first('post_title'))
-                              <span class="error_message">{{ $errors->first('post_title') }}</span>
-                              @endif
                               <input type="text" name="post_title" value="{{ old('post_title') }}" placeholder="タイトル" class="w-100">
                         </div>
 
                         <div class="modal-inner-body w-50 m-auto pt-3 pb-3">
-                              @if($errors->first('post_body'))
-                              <span class="error_message">{{ $errors->first('post_body') }}</span>
-                              @endif
                               <textarea placeholder="投稿内容" name="post_body" class="w-100">{{ old('post_body') }}</textarea>
                         </div>
 
                         <div class="w-50 m-auto edit-modal-btn d-flex">
                               <a class="js-modal-close btn btn-danger d-inline-block" href="">閉じる</a>
                               <input type="hidden" class="edit-modal-hidden" name="post_id" value="{{ old('post_id') }}">
-                              <input type="submit" class="btn btn-primary d-block  @if($errors->any()) modal-show @endif" value="編集">
+                              <input type="submit" class="btn btn-primary d-block  " value="編集">
                         </div>
                   </div>
                   {{ csrf_field() }}

@@ -85,6 +85,11 @@ class CalendarsController extends Controller
             $reservation->delete();  // 該当する予約を削除
         }
 
+        // 残りの予約枠数を増やす
+        $reserveSetting = ReserveSettings::findOrFail($reserve_setting_id);
+        $reserveSetting->limit_users += 1;
+        $reserveSetting->save();
+
         return redirect()->route('calendar.general.show', ['user_id' => $user_id]);
 
 

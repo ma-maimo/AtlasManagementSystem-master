@@ -3,6 +3,7 @@
 namespace App\Models\Posts;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Categories\SubCategory;
 
 class PostSubCategory extends Model
 {
@@ -14,13 +15,13 @@ class PostSubCategory extends Model
         'sub_category_id',
     ];
 
-    public function post()
+    public function posts()
     {
         return $this->belongsTo('App\Models\Posts\Post');
     }
 
-    public function SubCategory()
+    public function subCategory()
     {
-        return $this->belongsTo('App\Models\Categories\SubCategory');
+        return $this->belongsTo('App\Models\Categories\SubCategory', 'sub_category_id', 'id');
     }
 }

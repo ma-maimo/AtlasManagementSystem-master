@@ -25,4 +25,10 @@ class SubCategory extends Model
         // リレーションの定義
         return $this->belongsToMany(Post::class, 'post_sub_categories', 'sub_category_id', 'post_id');
     }
+
+    // 追加
+    public function postSubCategories()
+    {
+        return $this->hasMany('App\Models\Posts\PostSubCategory', 'sub_category_id', 'id');
+    }
 }

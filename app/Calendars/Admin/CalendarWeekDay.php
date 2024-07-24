@@ -120,7 +120,21 @@ class CalendarWeekDay
   }
 
   //
-  function dayNumberAdjustment()
+  // function dayNumberAdjustment()
+  // {
+  //   $html = [];
+  //   $html[] = '<div class="adjust-area">';
+  //   $html[] = '<p class="d-flex m-0 p-0">1部<input class="w-25" style="height:20px;" name="1" type="text" form="reserveSetting"></p>';
+  //   $html[] = '<p class="d-flex m-0 p-0">2部<input class="w-25" style="height:20px;" name="2" type="text" form="reserveSetting"></p>';
+  //   $html[] = '<p class="d-flex m-0 p-0">3部<input class="w-25" style="height:20px;" name="3" type="text" form="reserveSetting"></p>';
+  //   $html[] = '</div>';
+  //   return implode('', $html);
+  // }
+
+  // app/Models/CalendarDay.php
+
+
+  public function dayNumberAdjustment()
   {
     $html = [];
     $html[] = '<div class="adjust-area">';

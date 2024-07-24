@@ -21,13 +21,38 @@ class PostsController extends Controller
 {
     public function show(Request $request)
     {
+        // $postId = 1;
+        // // // 投稿が存在するか確認
+        // $post = Post::find($postId);
+
+        // $post->SubCategories;
+
+        // // // // 投稿が関連するサブカテゴリーを取得
+        // $postSubCategory = $post->postSubCategory;
+
+        // // // サブカテゴリーが正しく設定されているか確認
+        // // // $subCategory = $postSubCategory ? $postSubCategory->subCategory : null;
+        // $subCategory = $postSubCategory->subCategory;
+
+        // if ($subCategory) {
+        //     echo $subCategory->sub_category;
+        // } else {
+        //     echo "サブカテゴリーが設定されていません";
+        // }
+
+
         // dd($request->all());
         // 全部の投稿の取得と更新順にソート
-        $posts = Post::with('user', 'postComments')->get()->sortByDesc('updated_at');
+        $posts = Post::with('postSubCategory.subCategory', 'user', 'postComments', 'likes')->get()->sortByDesc('updated_at');
+
         $categories = MainCategory::get();
         $like = new Like;
         $post_comment = new Post;
 
+        // $post = Post::with('postSubCategory.subCategory')->find(1); // 適切なIDを指定
+        // dd($post->postSubCategory, $post->postSubCategories->subCategory->sub_category);
+
+        // dd($posts);
         // dd($request);
         // キーワード検索：もしリクエストに keyword パラメータが含まれている場合、投稿のタイトルまたは本文にそのキーワードを含む投稿を検索
         // if (!empty($request->keyword)) {
