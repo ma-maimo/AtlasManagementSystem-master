@@ -212,6 +212,10 @@ class PostsController extends Controller
         $like->save();
 
         return response()->json();
+        // return redirect()->route(
+        //     'authenticated.bulletinboard.post_like',
+        //     compact('posts', 'like')
+        // );
     }
 
     public function postUnLike(Request $request)
@@ -226,6 +230,10 @@ class PostsController extends Controller
             ->delete();
 
         return response()->json();
+        // return redirect()->route(
+        //     'authenticated.bulletinboard.post_like',
+        //     compact('posts', 'like')
+        // );
     }
 
     // 追加：カテゴリーごとに投稿の表示

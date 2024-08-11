@@ -75,9 +75,15 @@ class CalendarWeekDay
       $link = route('calendar.admin.detail', ['date' => urlencode($ymd), 'part' => $part]);
 
 
+      $html[] = '<div class="d-flex">';
       // $html[] = '<p class="day_part m-0 pt-1">' . $part . '部　' . $count . '</p>';
+      $html[] = '<div class="day_part_box">';
       $html[] = '<a href="' . $link . '"><p class="day_part m-0 pt-1">' . $part . '部</p></a>';
-      $html[] = '<p class="day_part m-0 pt-1">　' . $count . '</p>';
+      $html[] = '</div>';
+      $html[] = '<div class="day_part_count_box">';
+      $html[] = '<p class="day_part_count m-0 pt-1">　' . $count . '</p>';
+      $html[] = '</div>';
+      $html[] = '</div>';
     }
 
     $html[] = '</div>';
@@ -143,5 +149,21 @@ class CalendarWeekDay
     $html[] = '<p class="d-flex m-0 p-0">3部<input class="w-25" style="height:20px;" name="3" type="text" form="reserveSetting"></p>';
     $html[] = '</div>';
     return implode('', $html);
+  }
+
+
+  // protected $date;
+  // public function __construct(Carbon $date)
+  // {
+  //   $this->date = $date;
+  // }
+  public function isSaturday()
+  {
+    return $this->carbon->isSaturday();
+  }
+
+  public function isSunday()
+  {
+    return $this->carbon->isSunday();
   }
 }

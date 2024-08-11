@@ -29,13 +29,13 @@ class CalendarView //スクール予約画面のカレンダー
     $html[] = '<table class="table">';
     $html[] = '<thead>';
     $html[] = '<tr>';
-    $html[] = '<th>月</th>';
-    $html[] = '<th>火</th>';
-    $html[] = '<th>水</th>';
-    $html[] = '<th>木</th>';
-    $html[] = '<th>金</th>';
-    $html[] = '<th>土</th>';
-    $html[] = '<th>日</th>';
+    $html[] = '<th class="border">月</th>';
+    $html[] = '<th class="border">火</th>';
+    $html[] = '<th class="border">水</th>';
+    $html[] = '<th class="border">木</th>';
+    $html[] = '<th class="border">金</th>';
+    $html[] = '<th class="border">土</th>';
+    $html[] = '<th class="border">日</th>';
     $html[] = '</tr>';
     $html[] = '</thead>';
     $html[] = '<tbody>';
@@ -51,9 +51,9 @@ class CalendarView //スクール予約画面のカレンダー
 
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
           // $html[] = '<td class="calendar-td">';
-          $html[] = '<td class="past-day">'; //変更
+          $html[] = '<td class="past-day reserve-calendar-td border">'; //変更
         } else {
-          $html[] = '<td class="calendar-td ' . $day->getClassName() . '">';
+          $html[] = '<td class="border reserve-calendar-td ' . $day->getClassName() . '">';
         }
 
         $html[] = $day->render();
@@ -75,7 +75,7 @@ class CalendarView //スクール予約画面のカレンダー
             // 未来日で予約がある
           } else {
             // キャンセルボタン
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75 modal-open"
+            $html[] = '<button type="submit" class="btn btn-danger cancel_btn p-0 modal-open"
             name="delete_date" style="font-size:12px"
             data-toggle="modal"
             data-target="#modal-example"

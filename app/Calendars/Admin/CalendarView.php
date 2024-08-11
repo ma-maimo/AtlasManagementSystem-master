@@ -50,10 +50,10 @@ class CalendarView //スクール予約確認画面
 
         // 日付が過去の日かどうかを判断し、過去の場合は past-day クラスが適用された <td> 要素が生成
         if ($startDay <= $day->everyDay() && $toDay >= $day->everyDay()) {
-          $html[] = '<td class="past-day border">';
+          $html[] = '<td class="past-day border reserve_check_day">';
           // そうでない場合は、日付に対応したクラス名を取得し、それを <td> 要素のクラス属性に追加
         } else {
-          $html[] = '<td class="border ' . $day->getClassName() . '">';
+          $html[] = '<td class="border reserve_check_day ' . $day->getClassName() . '">';
         }
         // 日付の表示やその他の処理（render()メソッドやdayPartCounts()メソッド）が行われた後、</td>タグで要素を閉じる
         $html[] = $day->render();

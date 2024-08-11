@@ -2,14 +2,14 @@
 
 @section('content')
 <div class="post_create_container d-flex">
-      <div class="post_create_area border w-50 m-5 p-5">
-            <div class="">
+      <div class="post_create_area border mt-5 ml-5 mb-5 p-5">
+            <div class="category_select">
                   @if($errors->first('post_category_id'))
                   <span class="error_message">{{ $errors->first('post_category_id') }}</span>
                   @endif
                   <p class="mb-0">カテゴリー</p>
                   <select class="w-100" form="postCreate" name="sub_category_ids[]">
-                        <option>-----</option>
+                        <!-- <option>-----</option> -->
                         @foreach($main_categories as $main_category)
                         <optgroup label="{{ $main_category->main_category }}">
                               <!-- サブカテゴリー表示 -->
@@ -21,7 +21,7 @@
                   </select>
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3 title_form">
                   @if($errors->first('post_title'))
                   <span class="error_message">{{ $errors->first('post_title') }}</span>
                   @endif
@@ -29,7 +29,7 @@
                   <input type="text" class="w-100" form="postCreate" name="post_title" value="{{ old('post_title') }}">
             </div>
 
-            <div class="mt-3">
+            <div class="mt-3 post_form">
                   @if($errors->first('post_body'))
                   <span class="error_message">{{ $errors->first('post_body') }}</span>
                   @endif
@@ -46,9 +46,9 @@
       </div>
       @can('admin')
 
-      <div class="w-25 ml-auto mr-auto">
-            <div class="category_area mt-5 p-5">
-                  <div class="">
+      <div class="w-25">
+            <div class="category_area mt-5 p-5 border">
+                  <div class="main_category_area">
                         @if ($errors->has('main_category_name'))
                         <span class="text-danger">{{ $errors->first('main_category_name') }}</span>
                         @endif
@@ -59,7 +59,7 @@
                   <form action="{{ route('main.category.create') }}" method="post" id="mainCategoryRequest">{{ csrf_field() }}</form>
 
                   <!-- サブカテゴリー追加 -->
-                  <div class="">
+                  <div class="sub_category_area">
                         <ul>
                               <li> @if ($errors->has('main_category_id'))
                                     <span class="text-danger">{{ $errors->first('main_category_id') }}</span>

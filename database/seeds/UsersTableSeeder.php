@@ -57,7 +57,7 @@ class UsersTableSeeder extends Seeder
             "sex" => "3",
             "birth_day" => "2000-07-20",
             "role" => "4",
-            "password" => bcrypt('usagi1234') //bcrypt( )→暗号化
+            "password" => bcrypt('momonga1234') //bcrypt( )→暗号化
         ]);
         User::create([
             "over_name" => "ポシェットの",
@@ -80,6 +80,28 @@ class UsersTableSeeder extends Seeder
             "birth_day" => "2000-06-13",
             "role" => "3",
             "password" => bcrypt('roudou1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "ラッコ",
+            "under_name" => "師匠",
+            "over_name_kana" => "ラッコ",
+            "under_name_kana" => "シショウ",
+            "mail_address" => "rakko@tiikawa.com",
+            "sex" => "1",
+            "birth_day" => "2003-6-22",
+            "role" => "3",
+            "password" => bcrypt('rakko1234') //bcrypt( )→暗号化
+        ]);
+        User::create([
+            "over_name" => "パジャマ",
+            "under_name" => "ティーズ",
+            "over_name_kana" => "パジャマ",
+            "under_name_kana" => "ティーズ",
+            "mail_address" => "pajama@tiikawa.com",
+            "sex" => "3",
+            "birth_day" => "2003-5-23",
+            "role" => "4",
+            "password" => bcrypt('pajama1234') //bcrypt( )→暗号化
         ]);
     }
 }
