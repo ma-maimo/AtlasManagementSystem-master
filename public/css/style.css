@@ -257,9 +257,16 @@ li{
   height: 26px;
 }
 
+.post_view {
+  overflow: scroll;
+  height: 93.5vh;
+  position: relative;
+}
+
 .action {
   position: absolute;
-  right: 460px;
+  right: 140px;
+  justify-content: flex-end;
 }
 
 .counts{
