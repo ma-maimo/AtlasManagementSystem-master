@@ -44,7 +44,8 @@ class UsersController extends Controller
     {
         $user = User::with('subjects')->findOrFail($id);
         $subject_lists = Subjects::all();
-        return view('authenticated.users.profile', compact('user', 'subject_lists'));
+        $user_subjects = $user->subjects->pluck('id')->toArray();
+        return view('authenticated.users.profile', compact('user', 'subject_lists', 'user_subjects'));
     }
 
     public function userEdit(Request $request)

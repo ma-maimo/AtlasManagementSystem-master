@@ -11,10 +11,30 @@ $('.search_conditions_form').click(function () {
     $(this).find('.search_list_btn').toggleClass('is-open'); // ボタンの状態を切り替え
   });
   // ユーザー詳細のスライドメニュー
-  $('.select_subject_list').click(function () {
-    $(this).find('.subject_inner').slideToggle();
-    $(this).find('.select_subject_list_btn').toggleClass('is-open');
-  });
+  // $('.select_subject_list').click(function () {
+  //   $(this).find('.subject_inner').slideToggle();
+  //   $(this).find('.select_subject_list_btn').toggleClass('is-open');
+  // });
+
+$('.select_subject_list_btn, .optional_subject_register').click(function(e) {
+    e.stopPropagation(); // クリックイベントの伝播を防ぐ
+    $(this).closest('.select_subject_list').find('.subject_inner').slideToggle();
+
+    // ボタンを回転
+    $('.select_subject_list_btn').toggleClass('is-open');
+});
+
+// チェックボックスのクリック時にメニューを閉じないようにする
+$(document).on('click', '.subject_form_list input[type="checkbox"]', function (e) {
+    e.stopPropagation(); // チェックボックスクリック時のイベント伝播を防ぐ
+});
+
+
+
+
+
+
+
 
   $(document).on('click', '.like_btn', function (e) {
     e.preventDefault();

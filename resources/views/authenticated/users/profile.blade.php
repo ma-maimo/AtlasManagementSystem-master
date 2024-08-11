@@ -37,7 +37,8 @@
                                                 @foreach($subject_lists as $subject_list)
                                                 <div class="subject_form_list">
                                                       <label>{{ $subject_list->subject }}</label>
-                                                      <input type="checkbox" name="subjects[]" value="{{ $subject_list->id }}">
+                                                      <!-- <input type="checkbox" name="subjects[]" value="{{ $subject_list->id }}"> -->
+                                                      <input type="checkbox" name="subjects[]" value="{{ $subject_list->id }}" @if(in_array($subject_list->id,$user_subjects)) checked @endif>
                                                 </div>
                                                 @endforeach
                                           </div>
