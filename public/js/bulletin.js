@@ -6,10 +6,26 @@ $(function () {
     $(this).find('.category_search_list_btn').toggleClass('is-open');
   });
   // ユーザー検索のスライドメニュー
-$('.search_conditions_form').click(function () {
-    $(this).find('.search_conditions_inner').slideToggle(); // 内部のスライドメニューを表示/非表示
-    $(this).find('.search_list_btn').toggleClass('is-open'); // ボタンの状態を切り替え
-  });
+// $('.search_conditions_form').click(function () {
+//     $(this).find('.search_conditions_inner').slideToggle(); // 内部のスライドメニューを表示/非表示
+//     $(this).find('.search_list_btn').toggleClass('is-open'); // ボタンの状態を切り替え
+// });
+
+  $('.search_list_btn, .search_criteria_addition').click(function(e) {
+    e.stopPropagation(); // クリックイベントの伝播を防ぐ
+    $(this).closest('.search_conditions_form').find('.search_conditions_inner').slideToggle();
+
+    // ボタンを回転
+    $('.search_list_btn').toggleClass('is-open');
+});
+
+// チェックボックスのクリック時にメニューを閉じないようにする
+$(document).on('click', '.search_conditions_form input[type="checkbox"]', function (e) {
+    e.stopPropagation(); // チェックボックスクリック時のイベント伝播を防ぐ
+});
+
+
+
   // ユーザー詳細のスライドメニュー
   // $('.select_subject_list').click(function () {
   //   $(this).find('.subject_inner').slideToggle();

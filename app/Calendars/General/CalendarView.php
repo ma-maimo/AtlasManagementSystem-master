@@ -101,9 +101,11 @@ class CalendarView //スクール予約画面のカレンダー
                     <input type="hidden" name="reserve_part" class="reserve_part" value="' . $reservePart . '">
                     <input type="hidden" name="reserve_setting_id" class="reserve_setting_id" value="' . $day->authReserveDate($day->everyDay())->first()->id . '">
                      ' . csrf_field() . '
-                    <button type="submit" class="submit_button">キャンセル</button>
-                    </form>
-                    <button type="button" class="submit_button modal-close">閉じる</button>
+                     <div class="modal_button">
+                     <button type="button" class="submit_button_close modal-close btn btn-primary">閉じる</button>
+                     <button type="submit" class="submit_button_cancel btn btn-danger">キャンセル</button>
+                     </div>
+                     </form>
                 </div>
             </div>';
         }

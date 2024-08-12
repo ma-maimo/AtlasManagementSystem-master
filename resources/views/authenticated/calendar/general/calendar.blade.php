@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="w-100 vh-100 pt-5" style="background:#ECF1F6;">
+<div class="w-100 pt-5" style="background:#ECF1F6;">
       <div class="w-90 m-auto pt-5 reserve_setting_calendar" style="border-radius:5px; background:#FFF;">
 
             <p class="text-center">{{ $calendar->getTitle() }}</p>

@@ -1,6 +1,6 @@
 @extends('layouts.sidebar')
 @section('content')
-<div class="vh-100 d-flex">
+<div class="d-flex">
       <div class="w-50 mt-5">
             <div class="m-3 detail_container w-100">
                   <div class="edit_error pl-3">
@@ -20,7 +20,7 @@
                               @if(Auth::user() == $post->user )
                               <div class="detail_btn">
                                     <span class="edit-modal-open btn btn-primary edit_btn" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-                                    <button type="button" class="btn btn-danger post_delete"><a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')">削除</a></button>
+                                    <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいですか？')"><button type="button" class="btn btn-danger post_delete">削除</button></a>
                               </div>
                               @endif
                         </div>

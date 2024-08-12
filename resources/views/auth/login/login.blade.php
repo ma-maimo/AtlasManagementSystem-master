@@ -17,13 +17,13 @@
 <body>
       <div class="all_content">
 
-            <div id="header_logo">
-                  <a href="/login"><img class="header_logo" src="{{ asset('image/atlas-black.png') }}"></a>
+            <div id="header_logo" class="header_logo">
+                  <a href="/login"><img src="{{ asset('image/atlas-black.png') }}"></a>
             </div>
 
             <form action="{{ route('loginPost') }}" method="POST">
-                  <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center;">
-                        <div class="border vh-50 w-25 content">
+                  <div class="w-100 d-flex" style="align-items:center; justify-content:center;">
+                        <div class="border w-25 content login_box">
                               <div class="w-75 m-auto pt-5">
                                     <label class="d-block m-0" style="font-size:13px;">メールアドレス</label>
                                     <div class="border-bottom border-primary w-100">

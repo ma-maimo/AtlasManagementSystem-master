@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- スクール予約詳細画面 -->
-<div class="vh-100 d-flex" style="align-items:center; justify-content:center;">
+<div class="d-flex" style="align-items:center; justify-content:center;">
       <div class="m-auto h-75 detail_container">
             <p class="mb-2"><span>{{ \Carbon\Carbon::parse($date)->format('Y年m月d日') }}</span><span class="ml-3">{{ $part }}部</span></p>
             <div class="w-100 reserve_setting_detail">
