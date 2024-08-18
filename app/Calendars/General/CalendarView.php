@@ -90,7 +90,7 @@ class CalendarView //スクール予約画面のカレンダー
           // モーダルの中身
           $html[] = '
             <div class="modal cancel-modal">
-                <div class="modal__bg modal-close"></div>
+                <div class="cancel_bg modal-close"></div>
                 <div class="modal__content">
                     <p class="reserve_day">予約日：</p>
                     <p class="reserve_part">時間：</p>

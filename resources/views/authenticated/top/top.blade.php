@@ -1,7 +1,7 @@
 @extends('layouts.sidebar')
 
 @section('content')
-<div class="border">
+<div class="">
       <p class="content_name">自分のプロフィール</p>
       <div class="top_area w-75 m-auto pt-5">
             <div class="user_status p-3 content">
