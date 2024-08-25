@@ -635,7 +635,6 @@ button.submit_button_cancel{
   flex-wrap:wrap;
   width:850px;
   margin:10px auto;
-  height:80vh;
   overflow: scroll;
   padding-right: 0px;
   border-radius:5px;
